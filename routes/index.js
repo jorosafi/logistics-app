@@ -13,4 +13,6 @@ router.get("/test", function (req, res) {
   });
 });
 
+router.get("/view-items", controller.getAllItems);
+
 module.exports = router;

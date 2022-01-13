@@ -12,11 +12,9 @@ body
     button(type="button" class="btn btn-primary" id = 'view-inventory') View Inventory
     button(type="button" class="btn btn-primary" id = 'add-item') Add Item
     button(type="button" class="btn btn-primary" id = 'add-warehouse') Add Warehouse
-    //- button(class = '' id = 'edit-inventory') Edit Item
-    //- button(class = '' id = 'delete-item') Delete Item
-    //- button(class = '' id = 'view-inventory') View Inventory 
-  div(class = 'mb-3' id = 'add-item-form')
-    form(action="") 
+
+  div(class = 'mb-3 d-none' id = "add-item-form-wrapper")
+    form(action="" id = 'add-item-form') 
       div(class = "row g-3")
         div(class = "mb-3 col-sm-7")
           label Item name
@@ -57,8 +55,8 @@ body
           
 
 
-  div(id = 'inventory-table')
-    table(class="table table-striped")
+  div(class = "d-none" id = "items-table-wrapper")
+    table(class="table table-striped" id = "items-table ")
       thead
         tr
           td Item ID 
@@ -68,7 +66,7 @@ body
           td Wholesale Unit Price
           td Retail Unit Price
           td Storage Warehouse
-      tbody
+      tbody(id = 'items-table-body')
         tr 
           td "a-111"	
           td "Kenda Winter Tires"	
@@ -96,8 +94,8 @@ body
     div(class="d-grid gap-2 col-4 mx-auto mb-3")
         button(type="submit" class="btn btn-primary" id = 'edit-item') Edit Item
         button(type="submit" class="btn btn-danger" id = 'delete-item') Delete Item
-     
-
+    p Making a test commit 
+script(src = "/javascripts/helpers.js")
         
 
 
