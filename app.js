@@ -24,4 +24,5 @@ app.listen(port, () => {
   console.log(`app is listening at http:localhost:${port}`);
 });
 
-// module.exports = app; from original express-generator template
+// from original express-generator template
+// module.exports = app;
