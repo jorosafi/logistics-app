@@ -14,20 +14,20 @@ body
     button(type="button" class="btn btn-primary" id = 'add-warehouse') Add Warehouse
 
   div(class = 'mb-3 d-none' id = "add-item-form-wrapper")
-    form(action="" id = 'add-item-form') 
+    form(action="/add-item" method = "POST" id = 'add-item-form') 
       div(class = "row g-3")
         div(class = "mb-3 col-sm-7")
           label Item name
-          input(type="text", name="" class="form-control" placeholder="Item Name" id = "item-name-input") 
+          input(type="text", name="itemName" class="form-control" placeholder="Item Name" id = "item-name-input") 
         div(class = "mb-3 col-sm")
           label Wholesale Unit Price
-          input(type="text", name="" class="form-control" placeholder="$00.00" id = "w-price-input") 
+          input(type="text", name="wPrice" class="form-control" placeholder="$00.00" id = "w-price-input") 
         div(class = "mb-3 col-sm")
           label Retail Unit Price
-          input(type="text", name="" class="form-control" placeholder="$00.00" id = "r-price-input") 
+          input(type="text", name="rPrice" class="form-control" placeholder="$00.00" id = "r-price-input") 
       div(class = "row")
         div(class = "mb-3 col")
-          select(class = "form-select form-select-sm" id = "cat-dropdown")
+          select(class = "form-select form-select-sm" name = "category" id = "cat-dropdown")
               option(selected) Select a category
               option(value = "Apparel") Apparel
               option(value = "Automotive") Automotive
@@ -37,20 +37,20 @@ body
               option(value = "Seasonal") Seasonal
               option(value = "Sporting Goods") Sporting Goods
         div(class = "mb-3 col")
-          select(class = "form-select form-select-sm" id = "supplier-dropdown")
-            option(selected) Select a category
+          select(class = "form-select form-select-sm" name = "supplier" id = "supplier-dropdown")
+            option(selected) Select Supplier
             option(value = "Sporting Goods Distributor LTD.") Sporting Goods Distributor LTD.
             option(value = "Hardware and More") Hardware and More
             option(value = "Home and Kitchen Supplies") Automotive
         div(class = "mb-3 col")
-          select(class = "form-select form-select-sm" id = "warehouse-dropdown")
-            option(selected) Select a warehouse
+          select(class = "form-select form-select-sm" name = "warehouse" id = "warehouse-dropdown")
+            option(selected) Select a Warehouse
             option(value = "Metro Van Storage") Metro Van Storage
             option(value = "Hamilton Warehouse Services") Hamilton Warehouse Services
             option(value = "Giga Warehouse") Giga Warehouse
             option(value = "other") Other
       div(class="d-grid gap-2 col-4 mx-auto mb-3")
-        button(type="submit" class="btn btn-success" id = 'submit-add-item') Submit Item
+        input(type="submit" class="btn btn-success" id = 'submit-add-item')
       
           
 
@@ -94,7 +94,7 @@ body
     div(class="d-grid gap-2 col-4 mx-auto mb-3")
         button(type="submit" class="btn btn-primary" id = 'edit-item') Edit Item
         button(type="submit" class="btn btn-danger" id = 'delete-item') Delete Item
-    p Making a test commit 
+
 script(src = "/javascripts/helpers.js")
         
 

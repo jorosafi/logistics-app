@@ -2,11 +2,12 @@ const viewItemsBtn = document.querySelector("#view-inventory");
 const itemsTableWrapper = document.querySelector("#items-table-wrapper");
 const itemsTable = document.querySelector("#items-table-body");
 const addItemBtn = document.querySelector("#add-item");
+const addItemFormWrapper = document.querySelector("#add-item-form-wrapper");
 const addItemForm = document.querySelector("#add-item-form");
 // const usersHeaders = ["username", "password", "is_gas_buyer", "is_owner", "is_admin"]
 const itemsEndpoint = "http://localhost:3000/view-items";
 
-async function handleClick() {
+async function showInventoryOnClick() {
   // clear table if currently populated
   itemsTable.innerHTML = "";
 
@@ -28,8 +29,14 @@ async function handleClick() {
   itemsTableWrapper.classList.remove("d-none");
 }
 
+function showAddItemsForm() {
+  //make add items form visible
+  addItemFormWrapper.classList.remove("d-none");
+}
+
 async function init() {
-  viewItemsBtn.addEventListener("click", handleClick);
+  viewItemsBtn.addEventListener("click", showInventoryOnClick);
+  addItemBtn.addEventListener("click", showAddItemsForm);
 }
 
 init();

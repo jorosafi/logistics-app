@@ -15,4 +15,6 @@ router.get("/test", function (req, res) {
 
 router.get("/view-items", controller.getAllItems);
 
+router.post("/add-item", controller.addItem);
+
 module.exports = router;
