@@ -5,118 +5,164 @@ html
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
 
-body
-  h1 R Mart - Logistics & Inventory Manager
-  h3 Please select one of the following options:
-  div(class="d-grid gap-2 col-4 mx-auto mb-3")
-    button(type="button" class="btn btn-primary" id = 'view-inventory') View Inventory
-    button(type="button" class="btn btn-primary" id = 'add-item') Add Item
-    button(type="button" class="btn btn-primary" id = 'add-warehouse') Add Warehouse
+body(class = "px-0 pb-0" style = "min-height: 100vh")
+  div(style = "min-height: 80vh")
+    header(class = "text-center")
+      h1 R Mart - Logistics & Inventory Manager
+      h3 Please select one of the following options:
 
-  div(class = 'mb-3 d-none' id = "add-item-form-wrapper")
-    form(action="/add-item" method = "POST" id = 'add-item-form') 
-      div(class = "row g-3")
-        div(class = "mb-3 col-sm-7")
-          label Item name
-          input(type="text", name="itemName" class="form-control" placeholder="Item Name" id = "item-name-input" required) 
-        div(class = "mb-3 col-sm")
-          label Wholesale Unit Price
-          input(type="text", name="wPrice" class="form-control" placeholder="$00.00" id = "w-price-input" required) 
-        div(class = "mb-3 col-sm")
-          label Retail Unit Price
-          input(type="text", name="rPrice" class="form-control" placeholder="$00.00" id = "r-price-input" required) 
-      div(class = "row")
-        div(class = "mb-3 col")
-          select(class = "form-select form-select-sm" name = "category" id = "cat-dropdown" required)
-              option(selected) Select a category
-              option(value = "Apparel") Apparel
-              option(value = "Automotive") Automotive
-              option(value = "Hardware") Hardware
-              option(value = "Home") Home
-              option(value = "Kitchen") Kitchen
-              option(value = "Seasonal") Seasonal
-              option(value = "Sporting Goods") Sporting Goods
-        div(class = "mb-3 col")
-          select(class = "form-select form-select-sm" name = "supplier" id = "supplier-dropdown" required)
-            option(selected) Select Supplier
-            option(value = "Sporting Goods Distributor LTD.") Sporting Goods Distributor LTD.
-            option(value = "Hardware and More") Hardware and More
-            option(value = "Home and Kitchen Supplies") Automotive
-        div(class = "mb-3 col")
-          select(class = "form-select form-select-sm" name = "warehouse" id = "warehouse-dropdown" required)
-            option(selected) Select a Warehouse
-            option(value = "Metro Van Storage") Metro Van Storage
-            option(value = "Hamilton Warehouse Services") Hamilton Warehouse Services
-            option(value = "Giga Warehouse") Giga Warehouse
-            option(value = "other") Other
+    section(class = "px-5")
       div(class="d-grid gap-2 col-4 mx-auto mb-3")
-        input(type="submit" class="btn btn-success" id = 'submit-add-item' value="Add Item")
-        button(type="button" class="btn btn-secondary" onclick = "document.querySelector('#add-item-form-wrapper').classList.add('d-none')") Cancel
+        button(type="button" class="btn btn-primary" id = 'view-inventory') View Inventory
+        button(type="button" class="btn btn-primary" id = 'add-item') Add Item
+        button(type="button" class="btn btn-primary" id = 'add-warehouse' onclick = "document.querySelector('#add-warehouse-form-wrapper').classList.remove('d-none')") Add Warehouse
+
+      div(class = 'mb-3 d-none' id = "add-warehouse-form-wrapper")
+        form(action="/add-warehouse" method = "POST" id = 'add-warehouse-form')
+          div(class = "row g-3")
+            div(class = "mb-3 col-sm-6")
+              label Warehouse Name
+              input(type="text", name="warehouseName" class="form-control" placeholder="Warehouse Name" id = "warehouse-name-input" required)
+            div(class = "mb-3 col-sm-6")
+              label Street Address
+              input(type="text", name="warehouseAddress" class="form-control" placeholder="123 Main St." id = "warehouse-address-input" required)
+          div(class = "row g-3")
+            div(class = "mb-3 col-sm-4")
+              label City
+              input(type="text", name="warehouseCity" class="form-control" placeholder="City" id = "warehouse-city-input" required) 
+            div(class = "mb-3 col-sm-4")
+              label Province
+              select(class = "form-select form-select-sm" name = "province" id = "warehouse-province-drowdown" required)
+                  option(value="" disabled selected hidden) Select a Province
+                  option(value = "Alberta") Alberta
+                  option(value = "British Columbia") British Columbia
+                  option(value = "Manitoba") Manitoba
+                  option(value = "New Brunswick") New Brunswick
+                  option(value = "Newfoundland and Labrador") Newfoundland and Labrador
+                  option(value = "Northwest Territories") Northwest Territories
+                  option(value = "Nova Scotia") Nova Scotia
+                  option(value = "Nunavut") Nunavut
+                  option(value = "Ontario") Ontario
+                  option(value = "Prince Edward Island") Prince Edward Island
+                  option(value = "Quebec") Quebec
+                  option(value = "Saskatchewan") Saskatchewan
+                  option(value = "Yukon") Yukon 
+            div(class = "mb-3 col-sm-4")
+              label Postal Code
+              input(type="text", name="postalCode" class="form-control" placeholder="A1A 1A1" id = "w-post-code-input" required)
+          div(class="d-grid gap-2 col-4 mx-auto mb-3")
+              input(type="submit" class="btn btn-success" id = 'submit-add-warehouse' value="Add Warehouse")
+              button(type="button" class="btn btn-secondary" onclick = "document.querySelector('#add-warehouse-form-wrapper').classList.add('d-none')") Cancel
       
+
+      div(class = 'mb-3 d-none' id = "add-item-form-wrapper")
+        form(action="/add-item" method = "POST" id = 'add-item-form') 
+          div(class = "row g-3")
+            div(class = "mb-3 col-sm-7")
+              label Item name
+              input(type="text", name="itemName" class="form-control" placeholder="Item Name" id = "item-name-input" required) 
+            div(class = "mb-3 col-sm")
+              label Wholesale Unit Price
+              input(type="text", name="wPrice" class="form-control" placeholder="$00.00" id = "w-price-input" required) 
+            div(class = "mb-3 col-sm")
+              label Retail Unit Price
+              input(type="text", name="rPrice" class="form-control" placeholder="$00.00" id = "r-price-input" required) 
+          div(class = "row")
+            div(class = "mb-3 col")
+              select(class = "form-select form-select-sm" name = "category" id = "cat-dropdown" required)
+                  option(value="" disabled selected hidden) Select a Category
+                  option(value = "Apparel") Apparel
+                  option(value = "Automotive") Automotive
+                  option(value = "Hardware") Hardware
+                  option(value = "Home") Home
+                  option(value = "Kitchen") Kitchen
+                  option(value = "Seasonal") Seasonal
+                  option(value = "Sporting Goods") Sporting Goods
+            div(class = "mb-3 col")
+              select(class = "form-select form-select-sm" name = "supplier" id = "supplier-dropdown" required)
+                option(value="" disabled selected hidden) Select Supplier
+                option(value = "Sporting Goods Distributor LTD.") Sporting Goods Distributor LTD.
+                option(value = "Hardware and More") Hardware and More
+                option(value = "Home and Kitchen Supplies") Home and Kitchen Supplies
+            div(class = "mb-3 col")
+              select(class = "form-select form-select-sm" name = "warehouse" id = "warehouse-dropdown" onchange='checkOtherSelected(this.value);' required)
+                option(value="" disabled selected hidden) Select a Warehouse
+                option(value = "Metro Van Storage") Metro Van Storage
+                option(value = "Hamilton Warehouse Services") Hamilton Warehouse Services
+                option(value = "Giga Warehouse") Giga Warehouse
+                option(value = "other") Other
+          div(class="d-grid gap-2 col-4 mx-auto mb-3")
+            input(type="submit" class="btn btn-success" id = 'submit-add-item' value="Add Item")
+            button(type="button" class="btn btn-secondary" onclick = "document.querySelector('#add-item-form-wrapper').classList.add('d-none')") Cancel
           
+              
 
 
-  div(class = "d-none" id = "items-table-wrapper")
-    h3 Select item row to edit or delete
-    table(class="table table-striped" id = "items-table ")
-      thead
-        tr
-          td Item ID 
-          td Item Name
-          td Product Category
-          td Supplier ID
-          td Wholesale Unit Price
-          td Retail Unit Price
-          td Storage Warehouse
-      tbody(id = 'items-table-body')
-        tr 
-          td "a-111"	
-          td "Kenda Winter Tires"	
-          td "Automotive"	
-          td "6543"	
-          td 600.00	
-          td 780.00	
-          td "Metro Van Storage"
-        tr(class = "table-primary")
-          td "a-111"	
-          td "Kenda Winter Tires"	
-          td "Automotive"	
-          td "6543"	
-          td 600.00	
-          td 780.00	
-          td "Metro Van Storage"
-        tr 
-          td "a-111"	
-          td "Kenda Winter Tires"	
-          td "Automotive"	
-          td "6543"	
-          td 600.00	
-          td 780.00	
-          td "Metro Van Storage"
-        //- tr
-        //-   td 
-        //-     input(type="text")
-    div(class="d-grid gap-2 col-4 mx-auto mb-3")
-      form(action="edit-item" method = "POST" id = "edit-item-form")
-        label Item ID
-        input(type="text" name="itemID" class = "form-control item-id-input" id = "edit-sel-id" readonly)
-        label Item Name
-        input(type="text" name="itemName" class = "form-control" id = "edit-sel-name")
-        label Category
-        input(type="text" name="category" class = "form-control" id = "edit-sel-cat")
-        label Supplier ID
-        input(type="text" name="supplierID" class = "form-control" id = "edit-sel-sup")
-        label Wholesale Unit Price
-        input(type="text" name="wPrice" class = "form-control" id = "edit-sel-wp")
-        label Retail Unit Price
-        input(type="text" name="rPrice" class = "form-control" id = "edit-sel-rp")
-        label Warehouse
-        input(type="text" name="warehouse" class = "form-control" id = "edit-sel-wa")
-        input(type="submit" class="btn btn-primary" id = 'edit-item-btn' value = "Edit Item")
+      div(class = "d-none" id = "items-table-wrapper")
+        h3 Select item row to edit or delete
+        table(class="table table-striped" id = "items-table ")
+          thead
+            tr
+              td Item ID 
+              td Item Name
+              td Product Category
+              td Supplier ID
+              td Wholesale Unit Price
+              td Retail Unit Price
+              td Storage Warehouse
+          tbody(id = 'items-table-body')
+            tr 
+              td "a-111"	
+              td "Kenda Winter Tires"	
+              td "Automotive"	
+              td "6543"	
+              td 600.00	
+              td 780.00	
+              td "Metro Van Storage"
+            tr(class = "table-primary")
+              td "a-111"	
+              td "Kenda Winter Tires"	
+              td "Automotive"	
+              td "6543"	
+              td 600.00	
+              td 780.00	
+              td "Metro Van Storage"
+            tr 
+              td "a-111"	
+              td "Kenda Winter Tires"	
+              td "Automotive"	
+              td "6543"	
+              td 600.00	
+              td 780.00	
+              td "Metro Van Storage"
 
-      form(action="delete-item" method = "POST" id = "delete-item-form") 
-        input(type="text" name="itemID" class = "item-id-input d-none")
-        input(type="submit" class="btn btn-danger" id = 'delete-item-btn' value="Delete Item")
+        div(class="d-grid gap-2 col-4 mx-auto mb-3")
+          h3 To edit item information, enter new information below and click on 'Edit'
+          form(action="edit-item" method = "POST" id = "edit-item-form")
+            label Item ID
+            input(type="text" name="itemID" class = "form-control item-id-input" id = "edit-sel-id" readonly)
+            label Item Name
+            input(type="text" name="itemName" class = "form-control" id = "edit-sel-name")
+            label Category
+            input(type="text" name="category" class = "form-control" id = "edit-sel-cat")
+            label Supplier ID
+            input(type="text" name="supplierID" class = "form-control" id = "edit-sel-sup")
+            label Wholesale Unit Price
+            input(type="text" name="wPrice" class = "form-control" id = "edit-sel-wp")
+            label Retail Unit Price
+            input(type="text" name="rPrice" class = "form-control" id = "edit-sel-rp")
+            label Warehouse
+            input(type="text" name="warehouse" class = "form-control" id = "edit-sel-wa")
+            input(type="submit" class="btn btn-primary" id = 'edit-item-btn' value = "Edit Item")
+
+          form(action="delete-item" method = "POST" id = "delete-item-form") 
+            input(type="text" name="itemID" class = "item-id-input d-none")
+            input(type="submit" class="btn btn-danger" id = 'delete-item-btn' value="Delete Item")
+
+  footer(class = "bg-dark text-light text-center container-fluid p-4")
+    p Made with ♥ for Shopify by Rodrigo Samayoa </br> 
+      strong
+        a(href = "https://github.com/jorosafi/logistics-app" target="_blank") Checkout the code on Github 
 
 script(src = "/javascripts/helpers.js")
         

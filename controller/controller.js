@@ -1,7 +1,7 @@
 const model = require("../model/model");
 const app = require("../app");
 
-// SELECT all users
+// Get all items and insert into table
 async function getAllItems(req, res) {
   try {
     const sql = "SELECT * FROM inventory ORDER BY category ASC ";
@@ -13,6 +13,7 @@ async function getAllItems(req, res) {
   }
 }
 
+// Add Item
 async function addItem(req, res) {
   try {
     //Get values from form field
@@ -67,7 +68,7 @@ async function addItem(req, res) {
   }
 }
 
-// delete item
+// Delete item
 function deleteItem(req, res) {
   const { itemID } = req.body;
   const query = "DELETE FROM inventory WHERE item_id = $1";
@@ -82,7 +83,7 @@ function deleteItem(req, res) {
     });
 }
 
-//Edit item
+// Edit item
 function editItem(req, res) {
   const itemID = req.body.itemID;
   const itemName = req.body.itemName;
@@ -113,9 +114,46 @@ function editItem(req, res) {
     });
 }
 
+// Add warehouse to db
+async function addWarehouse(req, res) {
+  try {
+    //Get values from form field
+    let wName = req.body.warehouseName;
+    let wAddress = req.body.warehouseAddress;
+    let wCity = req.body.warehouseCity;
+    let wProv = req.body.province;
+    let wPostCode = req.body.postalCode;
+
+    //Insert warehouse to db with SQL query
+    let sql = "INSERT INTO warehouses VALUES ($1, $2, $3, $4, $5);";
+    let values = [wName, wAddress, wCity, wProv, wPostCode];
+    const response = await model.query(sql, values);
+
+    // res.render("inbox");
+    res.redirect("/");
+  } catch (err) {
+    console.error("POST warehouse: ", err);
+    res.status(500).end();
+  }
+}
+
+// Get warehouses
+async function getWarehouses(req, res) {
+  try {
+    const sql = "SELECT name FROM warehouses ORDER BY name ASC";
+    const response = await model.query(sql);
+    res.json(response.rows).status(200);
+  } catch (err) {
+    console.error("GET warehouses: ", err);
+    res.status(500).end();
+  }
+}
+
 module.exports = {
   getAllItems,
   addItem,
   deleteItem,
   editItem,
+  addWarehouse,
+  getWarehouses,
 };

@@ -1,3 +1,5 @@
+// const { disabled } = require("express/lib/application");
+
 //Varaibles for View Items button
 let isTableOpen = false;
 const viewItemsBtn = document.querySelector("#view-inventory");
@@ -9,9 +11,6 @@ const itemsEndpoint = "http://localhost:3000/view-items";
 const addItemBtn = document.querySelector("#add-item");
 const addItemFormWrapper = document.querySelector("#add-item-form-wrapper");
 const addItemForm = document.querySelector("#add-item-form");
-
-//Variables for delete item
-// const deleteBtn = document.querySelector('#delete-item-btn');
 
 //Displays items table on screen
 async function showInventoryOnClick() {
@@ -94,9 +93,55 @@ function highlightRow() {
   document.querySelector("#edit-sel-wa").value = warehouse;
 }
 
+//Opens Add Warehouse form when 'other' selected in warehouse dropdown of Add Item form
+function checkOtherSelected(elValue) {
+  if (elValue == "other") {
+    document
+      .querySelector("#add-warehouse-form-wrapper")
+      .classList.remove("d-none");
+    alert("Please add the new warehouse before adding a new item");
+  }
+}
+
+//Populate dropdown options for warehouses select in Add Items form
+async function populateWarehousesSelect() {
+  let warehousesDropdown = document.querySelector("#warehouse-dropdown");
+
+  // clear existing options
+  warehousesDropdown.innerHTML = "";
+
+  // get list of warehouses
+  const response = await fetch("http://localhost:3000/get-warehouses");
+  const warehouses = await response.json();
+
+  // generate placeholder option
+  let placeholder = document.createElement("option");
+  placeholder.setAttribute("value", "");
+  placeholder.setAttribute("disabled", "");
+  placeholder.setAttribute("selected", "");
+  placeholder.setAttribute("hidden", "");
+  placeholder.innerHTML = "Select a Warehouse";
+  warehousesDropdown.appendChild(placeholder);
+
+  // generate row for each item
+  warehouses.forEach((w) => {
+    let option = document.createElement("option");
+    option.setAttribute("value", w.name);
+    option.innerHTML = w.name;
+    warehousesDropdown.appendChild(option);
+  });
+
+  // generate 'other' option
+  let other = document.createElement("option");
+  other.setAttribute("value", "other");
+  other.innerHTML = "Other";
+  warehousesDropdown.appendChild(other);
+}
+
 async function init() {
   viewItemsBtn.addEventListener("click", showInventoryOnClick);
   addItemBtn.addEventListener("click", showAddItemsForm);
+  populateWarehousesSelect();
 }
 
 init();
