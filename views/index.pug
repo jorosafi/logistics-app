@@ -18,16 +18,16 @@ body
       div(class = "row g-3")
         div(class = "mb-3 col-sm-7")
           label Item name
-          input(type="text", name="itemName" class="form-control" placeholder="Item Name" id = "item-name-input") 
+          input(type="text", name="itemName" class="form-control" placeholder="Item Name" id = "item-name-input" required) 
         div(class = "mb-3 col-sm")
           label Wholesale Unit Price
-          input(type="text", name="wPrice" class="form-control" placeholder="$00.00" id = "w-price-input") 
+          input(type="text", name="wPrice" class="form-control" placeholder="$00.00" id = "w-price-input" required) 
         div(class = "mb-3 col-sm")
           label Retail Unit Price
-          input(type="text", name="rPrice" class="form-control" placeholder="$00.00" id = "r-price-input") 
+          input(type="text", name="rPrice" class="form-control" placeholder="$00.00" id = "r-price-input" required) 
       div(class = "row")
         div(class = "mb-3 col")
-          select(class = "form-select form-select-sm" name = "category" id = "cat-dropdown")
+          select(class = "form-select form-select-sm" name = "category" id = "cat-dropdown" required)
               option(selected) Select a category
               option(value = "Apparel") Apparel
               option(value = "Automotive") Automotive
@@ -37,32 +37,34 @@ body
               option(value = "Seasonal") Seasonal
               option(value = "Sporting Goods") Sporting Goods
         div(class = "mb-3 col")
-          select(class = "form-select form-select-sm" name = "supplier" id = "supplier-dropdown")
+          select(class = "form-select form-select-sm" name = "supplier" id = "supplier-dropdown" required)
             option(selected) Select Supplier
             option(value = "Sporting Goods Distributor LTD.") Sporting Goods Distributor LTD.
             option(value = "Hardware and More") Hardware and More
             option(value = "Home and Kitchen Supplies") Automotive
         div(class = "mb-3 col")
-          select(class = "form-select form-select-sm" name = "warehouse" id = "warehouse-dropdown")
+          select(class = "form-select form-select-sm" name = "warehouse" id = "warehouse-dropdown" required)
             option(selected) Select a Warehouse
             option(value = "Metro Van Storage") Metro Van Storage
             option(value = "Hamilton Warehouse Services") Hamilton Warehouse Services
             option(value = "Giga Warehouse") Giga Warehouse
             option(value = "other") Other
       div(class="d-grid gap-2 col-4 mx-auto mb-3")
-        input(type="submit" class="btn btn-success" id = 'submit-add-item')
+        input(type="submit" class="btn btn-success" id = 'submit-add-item' value="Add Item")
+        button(type="button" class="btn btn-secondary" onclick = "document.querySelector('#add-item-form-wrapper').classList.add('d-none')") Cancel
       
           
 
 
   div(class = "d-none" id = "items-table-wrapper")
+    h3 Select item row to edit or delete
     table(class="table table-striped" id = "items-table ")
       thead
         tr
           td Item ID 
           td Item Name
           td Product Category
-          td Supplier
+          td Supplier ID
           td Wholesale Unit Price
           td Retail Unit Price
           td Storage Warehouse
@@ -91,9 +93,30 @@ body
           td 600.00	
           td 780.00	
           td "Metro Van Storage"
+        //- tr
+        //-   td 
+        //-     input(type="text")
     div(class="d-grid gap-2 col-4 mx-auto mb-3")
-        button(type="submit" class="btn btn-primary" id = 'edit-item') Edit Item
-        button(type="submit" class="btn btn-danger" id = 'delete-item') Delete Item
+      form(action="edit-item" method = "POST" id = "edit-item-form")
+        label Item ID
+        input(type="text" name="itemID" class = "form-control item-id-input" id = "edit-sel-id" readonly)
+        label Item Name
+        input(type="text" name="itemName" class = "form-control" id = "edit-sel-name")
+        label Category
+        input(type="text" name="category" class = "form-control" id = "edit-sel-cat")
+        label Supplier ID
+        input(type="text" name="supplierID" class = "form-control" id = "edit-sel-sup")
+        label Wholesale Unit Price
+        input(type="text" name="wPrice" class = "form-control" id = "edit-sel-wp")
+        label Retail Unit Price
+        input(type="text" name="rPrice" class = "form-control" id = "edit-sel-rp")
+        label Warehouse
+        input(type="text" name="warehouse" class = "form-control" id = "edit-sel-wa")
+        input(type="submit" class="btn btn-primary" id = 'edit-item-btn' value = "Edit Item")
+
+      form(action="delete-item" method = "POST" id = "delete-item-form") 
+        input(type="text" name="itemID" class = "item-id-input d-none")
+        input(type="submit" class="btn btn-danger" id = 'delete-item-btn' value="Delete Item")
 
 script(src = "/javascripts/helpers.js")
         

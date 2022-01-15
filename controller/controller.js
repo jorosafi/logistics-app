@@ -19,8 +19,8 @@ async function addItem(req, res) {
     let itemName = req.body.itemName;
     let category = req.body.category;
     let supplierName = req.body.supplier;
-    let wUnitPrice = req.body.wPrice;
-    let rUnitPrice = req.body.rPrice;
+    let wUnitPrice = req.body.wPrice * 100;
+    let rUnitPrice = req.body.rPrice * 100;
     let warehouse = req.body.warehouse;
     let item_id =
       category.substring(0, 2).toLowerCase() +
@@ -59,14 +59,63 @@ async function addItem(req, res) {
       warehouse,
     ];
     const response = await model.query(sql, values);
-    res.render("index");
+    res.redirect("/");
+    // res.render("index");
   } catch (err) {
     console.error("POST user: ", err);
     res.status(500).end();
   }
 }
 
+// delete item
+function deleteItem(req, res) {
+  const { itemID } = req.body;
+  const query = "DELETE FROM inventory WHERE item_id = $1";
+  model
+    .query(query, [itemID])
+    .then((resolve) => {
+      // res.render("index");
+      res.redirect("/");
+    })
+    .catch((err) => {
+      res.json({ error: err });
+    });
+}
+
+//Edit item
+function editItem(req, res) {
+  const itemID = req.body.itemID;
+  const itemName = req.body.itemName;
+  const category = req.body.category;
+  const supplierID = req.body.supplierID;
+  const wPrice = req.body.wPrice * 100;
+  const rPrice = req.body.rPrice * 100;
+  const warehouse = req.body.warehouse;
+  const query =
+    "UPDATE public.inventory SET item_name = $2, category = $3, supplier_id = $4, w_unit_price = $5, r_unit_price = $6, warehouse = $7 WHERE item_id = $1";
+
+  model
+    .query(query, [
+      itemID,
+      itemName,
+      category,
+      supplierID,
+      wPrice,
+      rPrice,
+      warehouse,
+    ])
+    .then((resolve) => {
+      res.redirect("/");
+      // res.render("index");
+    })
+    .catch((err) => {
+      res.json({ error: err });
+    });
+}
+
 module.exports = {
   getAllItems,
   addItem,
+  deleteItem,
+  editItem,
 };
