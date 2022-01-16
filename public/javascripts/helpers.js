@@ -113,7 +113,7 @@ async function populateWarehousesSelect() {
 
   // get list of warehouses
   const response = await fetch(
-    "https://rsf-logistics-inventory.herokuapp.com/view-items"
+    "https://rsf-logistics-inventory.herokuapp.com/get-warehouses"
   );
   const warehouses = await response.json();
 
