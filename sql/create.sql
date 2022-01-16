@@ -3,7 +3,8 @@ CREATE TABLE product_cat(
 );
 
 CREATE TABLE provinces(
-    name VARCHAR(20) PRIMARY KEY
+    name VARCHAR(20) PRIMARY KEY,
+	short_name VARCHAR(2)
 );
 
 CREATE TABLE suppliers(
@@ -21,8 +22,8 @@ CREATE TABLE suppliers(
 CREATE TABLE warehouses(
     name VARCHAR(50) PRIMARY KEY,
     street_address VARCHAR(50),
-    city VARCHAR(30)
-    prov VARCHAR(20)
+    city VARCHAR(30),
+    prov VARCHAR(20),
     postal_code VARCHAR(7),
     FOREIGN KEY (prov) REFERENCES provinces(name)
 );
@@ -50,9 +51,10 @@ VALUES('Alberta', 'AB'),
 ('Saskatchewan', 'SK'),
 ('Newfoundland and Labrador', 'NL'),
 ('Northwest Territories', 'NT'),
+('Ontario', 'ON'),
 ('Yukon', 'YT'),
 ('Nunavut', 'NU'),
-('Nova Scotia', 'NS')
+('Nova Scotia', 'NS');
 
 INSERT INTO product_cat
 VALUES('Sporting Goods'),
