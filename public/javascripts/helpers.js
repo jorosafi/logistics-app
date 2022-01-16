@@ -5,7 +5,8 @@ let isTableOpen = false;
 const viewItemsBtn = document.querySelector("#view-inventory");
 const itemsTableWrapper = document.querySelector("#items-table-wrapper");
 const itemsTable = document.querySelector("#items-table-body");
-const itemsEndpoint = "http://localhost:3000/view-items";
+const itemsEndpoint =
+  "https://rsf-logistics-inventory.herokuapp.com/view-items";
 
 //Variables for add item form
 const addItemBtn = document.querySelector("#add-item");
@@ -111,7 +112,9 @@ async function populateWarehousesSelect() {
   warehousesDropdown.innerHTML = "";
 
   // get list of warehouses
-  const response = await fetch("http://localhost:3000/get-warehouses");
+  const response = await fetch(
+    "https://rsf-logistics-inventory.herokuapp.com/view-items"
+  );
   const warehouses = await response.json();
 
   // generate placeholder option
