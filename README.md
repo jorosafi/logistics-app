@@ -14,8 +14,8 @@ The app has a PostgreSQL relational database to store inventory data, Express JS
 
 ## Run Locally
 
-To run the application locally you will need Node.js and a PostgresQL database.
+To run the application locally you will need Node.js and a PostgreSQL database.
 
 1. Clone repo locally
 2. Run `npm install` to install dependencies
-3. After setting a PostgreSQL database, run the SQL scripts provided to create a local instance of the relational database.
+3. After setting up a PostgreSQL database, run the SQL scripts provided to create a local instance of the relational database.
